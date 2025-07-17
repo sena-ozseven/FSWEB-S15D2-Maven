@@ -1,5 +1,6 @@
 package org.example.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class TaskData {
@@ -30,9 +31,42 @@ public class TaskData {
     public Set<Task> getUnassignedTasks() {
         return unassignedTasks;
     }
-    
-    /*
+
+
     public Set<Task> getTasks(String name) {
-        Set<String> name = new Set<Task>();
-    }*/
+        switch (name.toLowerCase()) {
+            case "ann":
+                return getAnnsTasks();
+            case "bob":
+                return getBobsTasks();
+            case "carol":
+                return getCarolsTasks();
+            case "all":
+                Set<Task> allTasks = new HashSet<>();
+                allTasks.addAll(getAnnsTasks());
+                allTasks.addAll(getBobsTasks());
+                allTasks.addAll(getCarolsTasks());
+                allTasks.addAll(getUnassignedTasks());
+                return allTasks;
+            default:
+                throw new IllegalArgumentException("Invalid name: " + name);
+        }
+    }
+
+    public Set<Task> getUnion(Set<Task> task1, Set<Task> task2) {
+        Set<Task> copyTask1 = new HashSet<>(task1);
+        copyTask1.addAll(task2);
+        return copyTask1;
+    }
+    public Set<Task> getIntersection(Set<Task> task1, Set<Task> task2) {
+        Set<Task> copyTask1 = new HashSet<>(task1);
+        copyTask1.retainAll(task2);
+        return copyTask1;
+    }
+    public Set<Task> getDifferences(Set<Task> task1, Set<Task> task2) {
+        Set<Task> copyTask1 = new HashSet<>(task1);
+        copyTask1.removeAll(task2);
+        return copyTask1;
+    }
+
 }
