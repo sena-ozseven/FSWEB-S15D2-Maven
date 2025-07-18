@@ -1,13 +1,14 @@
 package org.example.entity;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class TaskData {
-    Set<Task> annsTasks;
-    Set<Task> bobsTasks;
-    Set<Task> carolsTasks;
-    Set<Task> unassignedTasks;
+    private Set<Task> annsTasks;
+    private Set<Task> bobsTasks;
+    private Set<Task> carolsTasks;
+    private Set<Task> unassignedTasks;
 
     public TaskData(Set<Task> annsTasks, Set<Task> bobsTasks, Set<Task> carolsTasks, Set<Task> unassignedTasks) {
         this.annsTasks = annsTasks;
@@ -36,27 +37,23 @@ public class TaskData {
     public Set<Task> getTasks(String name) {
         switch (name.toLowerCase()) {
             case "ann":
-                return getAnnsTasks();
+                return this.annsTasks;
             case "bob":
-                return getBobsTasks();
+                return this.bobsTasks;
             case "carol":
-                return getCarolsTasks();
+                return this.carolsTasks;
             case "all":
-                Set<Task> allTasks = new HashSet<>();
-                allTasks.addAll(getAnnsTasks());
-                allTasks.addAll(getBobsTasks());
-                allTasks.addAll(getCarolsTasks());
-                allTasks.addAll(getUnassignedTasks());
-                return allTasks;
-            default:
-                throw new IllegalArgumentException("Invalid name: " + name);
+                return getUnion(bobsTasks, carolsTasks, annsTasks);
         }
+        return new HashSet<>();
     }
 
-    public Set<Task> getUnion(Set<Task> task1, Set<Task> task2) {
-        Set<Task> copyTask1 = new HashSet<>(task1);
-        copyTask1.addAll(task2);
-        return copyTask1;
+    public Set<Task> getUnion(Set<Task> ... sets) {
+        HashSet<Task> allTasks = new LinkedHashSet<>();
+        for (Set<Task> tasks : sets) {
+            allTasks.addAll(tasks);
+        }
+        return allTasks;
     }
     public Set<Task> getIntersection(Set<Task> task1, Set<Task> task2) {
         Set<Task> copyTask1 = new HashSet<>(task1);
@@ -69,4 +66,14 @@ public class TaskData {
         return copyTask1;
     }
 
+
+    @Override
+    public String toString() {
+        return "TaskData{" +
+                "annsTasks=" + annsTasks +
+                ", bobsTasks=" + bobsTasks +
+                ", carolsTasks=" + carolsTasks +
+                ", unassignedTasks=" + unassignedTasks +
+                '}';
+    }
 }

@@ -40,14 +40,13 @@ public class Task implements Comparable<Task>{
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return Objects.equals(getProject(), task.getProject()) && Objects.equals(getDescription(), task.getDescription()) && Objects.equals(getAssignee(), task.getAssignee()) && status == task.status && priority == task.priority;
+        return Objects.equals(getProject(), task.getProject()) && Objects.equals(getDescription(), task.getDescription());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getProject(), getDescription(), getAssignee(), status, priority);
+        return Objects.hash(getProject(), getDescription());
     }
-
 
     //***
     @Override
@@ -57,5 +56,16 @@ public class Task implements Comparable<Task>{
             return descriptionComparison;
         }
         return this.project.compareTo(task.project);
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "project='" + project + '\'' +
+                ", description='" + description + '\'' +
+                ", assignee='" + assignee + '\'' +
+                ", status=" + status +
+                ", priority=" + priority +
+                '}';
     }
 }
