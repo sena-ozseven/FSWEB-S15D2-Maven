@@ -1,15 +1,14 @@
 package org.example;
 
-import org.example.entity.Priority;
-import org.example.entity.Status;
-import org.example.entity.Task;
-import org.example.entity.TaskData;
+import org.example.entity.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
+
+        /*
         Set<Task> annsTasks = new HashSet<>();
         Task taskAnn = new Task("hamster project", "fill the water", "ann", Status.IN_PROGRESS, Priority.HIGH);
         Task taskAnn2 = new Task("ucubik special project", "get the most expensive food for her", "ann", Status.ASSIGNED, Priority.HIGH);
@@ -36,6 +35,8 @@ public class Main {
 
         TaskData taskData = new TaskData(annsTasks, bobsTasks, carolsTasks, unassignedTasks);
         System.out.println(taskData.getTasks("bob"));
+        */
 
+        StringSet.findUniqueWords();
     }
 }
